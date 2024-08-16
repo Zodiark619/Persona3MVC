@@ -9,15 +9,122 @@ namespace Persona3MVC.Controllers
     {
         private readonly ApplicationDbContext context;
         private readonly IWebHostEnvironment environment;
+        private readonly int pageSize = 3;
 
         public PersonasController(ApplicationDbContext context,IWebHostEnvironment environment)
         {
             this.context = context;
             this.environment = environment;
         }
-        public IActionResult Index()
+        public IActionResult Index(int pageIndex,string? search, string? column, string? orderBy)
         {
-            var personas=context.Personas.OrderByDescending(x=>x.Id).ToList();
+            IQueryable<Persona> query = context.Personas;
+            if (search != null)
+            {
+                query = query.Where(p => p.Name.Contains(search) || p.Arcana.Contains(search));
+            }
+
+            string[] validColumns = { "Id", "Name", "Level", "Arcana", "Price", "CreatedAt" };
+            string[] validOrderBy = { "desc", "asc" };
+
+            if (!validColumns.Contains(column))
+            {
+                column = "Id";
+            }
+
+            if (!validOrderBy.Contains(orderBy))
+            {
+                orderBy = "desc";
+            }
+
+
+            if (column == "Name")
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(x => x.Name);
+                }
+                else
+                {
+                    query = query.OrderByDescending(x => x.Name);
+
+                }
+            }
+            else if (column == "Level")
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(x => x.Level);
+                }
+                else
+                {
+                    query = query.OrderByDescending(x => x.Level);
+
+                }
+            }
+            else if (column == "Arcana")
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(x => x.Arcana);
+                }
+                else
+                {
+                    query = query.OrderByDescending(x => x.Arcana);
+
+                }
+            }
+            else if (column == "Price")
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(x => x.Price);
+                }
+                else
+                {
+                    query = query.OrderByDescending(x => x.Price);
+
+                }
+            }
+            else if (column == "CreatedAt")
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(x => x.CreatedAt);
+                }
+                else
+                {
+                    query = query.OrderByDescending(x => x.CreatedAt);
+
+                }
+            }
+            else
+            {
+                if (orderBy == "asc")
+                {
+                    query = query.OrderBy(x => x.Id);
+                }
+                else
+                {
+                    query = query.OrderByDescending(x => x.Id);
+
+                }
+            }
+
+            if (pageIndex < 1)
+            {
+                pageIndex = 1;
+            }
+            decimal count = query.Count();
+            int totalPages = (int)Math.Ceiling(count / pageSize);
+            query = query.Skip((pageIndex - 1) * pageSize).Take(pageSize);
+
+            var personas = query.ToList();
+            ViewData["PageIndex"] = pageIndex;
+            ViewData["TotalPages"] = totalPages;
+            ViewData["Search"] = search ?? "";
+            ViewData["Column"] = column;
+            ViewData["OrderBy"] = orderBy;
             return View(personas);
         }
         public IActionResult Create()
