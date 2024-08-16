@@ -5,6 +5,8 @@ using System;
 
 namespace Persona3MVC.Controllers
 {
+    [Route("/Admin/[controller]/{action=Index}/{id?}")]
+
     public class PersonasController : Controller
     {
         private readonly ApplicationDbContext context;
