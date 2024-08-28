@@ -1,24 +1,21 @@
 using Microsoft.AspNetCore.Mvc;
 using Persona3MVC.Models;
-using Persona3MVC.Services;
 using System.Diagnostics;
 
 namespace Persona3MVC.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext context;
+        private readonly ILogger<HomeController> _logger;
 
-        public HomeController(ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger)
         {
-            this.context = context;
+            _logger = logger;
         }
 
         public IActionResult Index()
         {
-            var personas = context.Personas.OrderByDescending(x => x.Id).Take(4).ToList();
-
-            return View(personas);
+            return View();
         }
 
         public IActionResult Privacy()

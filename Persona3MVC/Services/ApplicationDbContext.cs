@@ -8,6 +8,9 @@ namespace Persona3MVC.Services
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
-        public DbSet<Persona> Personas { get; set; }
+
+
+
+        public DbSet<Persona> Personas {  get; set; }
     }
 }

@@ -1,4 +1,6 @@
 ﻿@model PersonaDto
+@{
+}
 
 
 
@@ -6,44 +8,50 @@
 
 <div class="row">
     <div class="col-md-8 mx-auto rounded border p-3">
-        <h2 class="text-center mb-5">New Product</h2>
+        <h2 class="text-center mb-5">New Persona</h2>
+
+
+
 
 
         <form method="post" enctype="multipart/form-data">
+            
+        <div class="row mb-3">
+            <label class="col-sm-4 col-form-label">Name</label>
+            <div class="col-sm-8">
+                <input class="form-control" asp-for="Name"/>
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+        </div>
+
+
             <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Name</label>
+                <label class="col-sm-4 col-form-label">Arcana</label>
                 <div class="col-sm-8">
-                    <input class="form-control" asp-for="Name">
-                    <span asp-validation-for="Name" class="text-danger"></span>
+                    <select class="form-select" asp-for="Arcana">
+                        <option value="Magician">Magician</option>
+                        <option value="Fool">Fool</option>
+                        <option value="Death">Death</option>
+                        <option value="Empress">Empress</option>
+                        <option value="Chariot">Chariot</option>
+                        <option value="Hanged Man">Hanged Man</option>
+                        <option value="Moon">Moon</option>
+                    </select>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Level</label>
                 <div class="col-sm-8">
-                    <input class="form-control" asp-for="Level">
+                    <input class="form-control" asp-for="Level" />
                     <span asp-validation-for="Level" class="text-danger"></span>
-                </div>
-            </div>
-
-            <div class="row mb-3">
-                <label class="col-sm-4 col-form-label">Arcana</label>
-                <div class="col-sm-8">
-                    <select class="form-select" asp-for="Arcana">
-                        <option value='Fool'>Fool</option>
-                        <option value='Magician'>Magician</option>
-                        <option value='Empress'>Empress</option>
-                        <option value='Chariot'>Chariot</option>
-                        <option value='Death'>Death</option>
-                        <option value='Hanged Man'>Hanged Man</option>
-                    </select>
                 </div>
             </div>
 
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Price</label>
                 <div class="col-sm-8">
-                    <input class="form-control" asp-for="Price">
+                    <input class="form-control" asp-for="Price" />
                     <span asp-validation-for="Price" class="text-danger"></span>
                 </div>
             </div>
@@ -51,7 +59,7 @@
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Description</label>
                 <div class="col-sm-8">
-                    <textarea class="form-control" asp-for="Description"></textarea>
+                    <textarea class="form-control" asp-for="Description" ></textarea>
                     <span asp-validation-for="Description" class="text-danger"></span>
                 </div>
             </div>
@@ -59,22 +67,24 @@
             <div class="row mb-3">
                 <label class="col-sm-4 col-form-label">Image</label>
                 <div class="col-sm-8">
-                    <input class="form-control" asp-for="ImageFile">
+                    <input class="form-control" asp-for="ImageFile" />
                     <span asp-validation-for="ImageFile" class="text-danger"></span>
                 </div>
             </div>
+
 
             <div class="row">
                 <div class="offset-sm-4 col-sm-4 d-grid">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
-                <div class="col-sm-4 d-grid">
+                <div class="col-sm-4  d-grid">
                     <a class="btn btn-outline-primary" asp-controller="Personas" asp-action="Index" role="button">
                         Cancel
                     </a>
                 </div>
-            </div>
-
         </form>
     </div>
 </div>
+
+
+

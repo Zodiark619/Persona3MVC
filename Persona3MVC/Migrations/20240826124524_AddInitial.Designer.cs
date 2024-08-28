@@ -12,15 +12,15 @@ using Persona3MVC.Services;
 namespace Persona3MVC.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240811152112_FirstMigration")]
-    partial class FirstMigration
+    [Migration("20240826124524_AddInitial")]
+    partial class AddInitial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "8.0.7")
+                .HasAnnotation("ProductVersion", "8.0.8")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
